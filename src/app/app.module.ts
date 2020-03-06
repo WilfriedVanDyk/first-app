@@ -8,6 +8,8 @@ import {MaterialModule} from './material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { FormsModule } from '@angular/forms';
+import {MatTableModule} from '@angular/material/table';
+
 
 
 @NgModule({
@@ -20,6 +22,7 @@ import { FormsModule } from '@angular/forms';
     MaterialModule,
     BrowserAnimationsModule,
     FormsModule,
+    MatTableModule,
     
 ],
 // ... providers and bootstrap properties ...
