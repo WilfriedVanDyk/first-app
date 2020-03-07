@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({
@@ -21,62 +22,76 @@ export class AppComponent {
     { gokPoging: 8, getal: null },
     { gokPoging: 9, getal: null },
     { gokPoging: 10, getal: null },
-
   ];
+
 
 
   displayedColumns: string[] = ["gokPoging", "getal"];
   dataSource = this.tabelGokGetallen;
 
   randomNummer: number = Math.floor((Math.random() * 100) + 1);
-  aantalGokken: number = 10;
+  aantalGokken: number = 5;
   aantalGokkenGedaan: number = 1;
-  value = null;
+  value: number = null;
   hint: string = "";
-  nullBoodschap: string = "Je hebt nog geen nummer ingegeven...";
-  errorMessage: string = "Ik zij het toch, je hebt nog geen nummer ingegeven...";
-
+  nullBoodschap: string = "Geef een nieuw nummer in.";
+  verlorenBoodschap: string;
+  gewonnenBoodschap: string;
+  gewonnen: boolean = false;
+  verloren: boolean = false;
+  cijferHint: string = "Het nieuwe getal is te hoog of te laag. Kies opnieuw."
 
 
   getalOK() {
-    if (this.value === null) {
-
-      this.getErrorMessage();
-
+    if (this.value === this.randomNummer) {
+      this.tabelGokGetallen[this.aantalGokkenGedaan - 1].getal = this.value;
+      this.gewonnenBoodschap = "Proficiat! Dit is het juiste getal!! klik op de Herbegin! button om opnieuw te spelen";
+      this.gewonnen = true;
+      this.tabelGokGetallen.length = this.aantalGokkenGedaan;
+     
     }
-    else if (this.value < this.randomNummer) {
-      this.hint = "het gegeven getal is te laag. Kies opnieuw!";
+
+    else if (this.aantalGokken <=1  && this.value!=null) {
+      this.tabelGokGetallen[this.aantalGokkenGedaan - 1].getal = this.value;
+      this.verlorenBoodschap="Het aantal beurten is op. Jammer, je bent verloren! "+
+      "het juiste getal was "
+      this.verloren = true;
+      this.tabelGokGetallen.length = this.aantalGokkenGedaan;
+    }
+
+   else if (!this.gewonnen && !this.verloren && this.value!=null && (this.value > 100 || this.value <= 0)) {
+      this.value=null;
+      this.hint="";
+    }
+
+    
+    else if (this.value < this.randomNummer && this.gewonnen ==false && this.value!=null) {
+      this.hint = "het gegeven getal is te laag. ";
       this.aantalGokken--;
       this.aantalGokkenGedaan++;
       this.itemToevoegenAanTabel();
+      this.value=null;
 
     }
-    else if (this.value > this.randomNummer) {
-      this.hint = "het gegeven getal is te hoog. Kies opnieuw!";
+    else if (this.value > this.randomNummer && this.gewonnen ==false && this.value!=null) {
+      this.hint = "het gegeven getal is te hoog.";
       this.aantalGokken--;
       this.aantalGokkenGedaan++;
       this.itemToevoegenAanTabel();
+      this.value=null;
     }
-    else {
-      this.hint = "Proficiat! Dit is het juiste getal!! Geef een nieuw getal in om te herbeginnen";
-      this.herbeginSpel();
-
-    }
-
-    if (this.aantalGokken <= 0) {
-      this.hint = "je hebt het spel verloren! Je kan herbeginnen LOOSER";
-      this.herbeginSpel();
-
-    }
+    
   }
 
   herbeginSpel() {
     this.randomNummer = Math.floor((Math.random() * 100) + 1);
     this.aantalGokken = 10;
     this.aantalGokkenGedaan = 1;
-
-    this.nullBoodschap = "Je hebt nog geen nummer ingegeven...";
-
+    this.gewonnen = false;
+    this.verloren = false;
+    this.nullBoodschap = "Geef een nieuw nummer in.";
+    this.value = null;
+    this.hint="";
     this.tabelGokGetallen = [
       { gokPoging: 1, getal: null },
       { gokPoging: 2, getal: null },
@@ -88,14 +103,8 @@ export class AppComponent {
       { gokPoging: 8, getal: null },
       { gokPoging: 9, getal: null },
       { gokPoging: 10, getal: null },
-
     ];
   }
-
-  getErrorMessage() {
-    return this.errorMessage;
-  }
-
   itemToevoegenAanTabel() {
     this.tabelGokGetallen[this.aantalGokkenGedaan - 2].getal = this.value;
   }
