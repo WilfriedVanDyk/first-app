@@ -4,18 +4,35 @@
 
         <h3>Kies een getal tussen 1 en 100.</h3>
 
-        <p>Als je op de button "Is dit het juiste getal" drukt, zal onderaan een hint gegeven worden
+        <!-- <p>Als je op de button "klik voor gok 1" drukt, zal onderaan een hint gegeven worden
             en of het gekozen getal juist is of niet.
 
         </p>
         <p> Je mag maximum 10 keer gokken.</p>
-        <p> Je moet het getal raden binnen de minuut.</p>
+        <p> Je moet het getal raden binnen de minuut.</p> -->
     </div>
+
+
+
+    <mat-grid-list  cols="2" rowHeight="100px"  >
+        <mat-grid-tile>
+            <p>Vul een getal in, en klik op de button "klik voor gok x"</p>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <p>je krijgt onderaan een hint. Is het gekozen getal juist is of niet.</p>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <p> Je mag maximum 10 keer gokken.</p>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <p> Je moet het getal raden binnen de minuut.</p>
+        </mat-grid-tile>
+    </mat-grid-list>
 
     <div>
         <div id="tekst">
 
-<!-- <p>{{counter}}</p> -->
+            <!-- <p>{{counter}}</p> -->
 
             <p *ngIf="!gewonnen && !verloren">Je hebt nog {{aantalGokken}} pogingen</p>
             <p *ngIf="!gewonnen && !verloren && (value === null)">{{nullBoodschap}}</p>
@@ -26,6 +43,8 @@
 
         </div>
 
+
+
         <div>
             <mat-form-field *ngIf="!gewonnen && !verloren" class="form-full-width" appearance="fill">
                 <mat-label class="belangrijk">doe hier een gok: een getal tussen 1 en 100</mat-label>
@@ -34,13 +53,11 @@
                 <mat-hint>kijk dan onderaan naar de gegeven hint</mat-hint>
             </mat-form-field>
 
-            <br>
 
             <p *ngIf="!gewonnen && !verloren && value != null"> het gekozen getal is {{value}} </p>
-            <br>
 
             <p *ngIf="!gewonnen && !verloren">
-                <button mat-raised-button (click)="getalOK()"> gok {{aantalGokkenGedaan }}</button>
+                <button mat-raised-button (click)="getalOK()">klik voor gok {{aantalGokkenGedaan }}</button>
             </p>
 
 
@@ -60,7 +77,7 @@
 
 
 
-        
+
         <h3 *ngIf="(!gewonnen && !verloren)">Je vorige pogingen waren: </h3>
 
         <div>
@@ -87,6 +104,8 @@
 
     </div>
 </body>
+
+
 
 <!-- 
 <input [(ngModel)]="name" #ctrl="ngModel" required>

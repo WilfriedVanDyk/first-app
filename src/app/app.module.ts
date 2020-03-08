@@ -10,7 +10,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import {MatTableModule} from '@angular/material/table';
 
+import {MatGridListModule} from '@angular/material/grid-list';
 
+//import {CounterService} from './counter.service';
+//private countService: CounterService //in de constructur van de exportclass ????
 
 @NgModule({
   declarations: [
@@ -23,7 +26,10 @@ import {MatTableModule} from '@angular/material/table';
     BrowserAnimationsModule,
     FormsModule,
     MatTableModule,
-    
+    MatGridListModule,
+],
+exports:[
+  MatGridListModule,
 ],
 // ... providers and bootstrap properties ...
 

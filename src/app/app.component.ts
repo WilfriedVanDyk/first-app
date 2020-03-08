@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 
 
-//import {CounterService} from './counter.service';
-
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -12,14 +9,7 @@ import { Component } from '@angular/core';
 
 export class AppComponent {
 
-  // constructor(
-  // // private countService: CounterService 
-  //  ) {
-  // }
-
   title = 'first-app';
-
-
 
   tabelGokGetallen = [
     { gokPoging: 1, getal: null },
