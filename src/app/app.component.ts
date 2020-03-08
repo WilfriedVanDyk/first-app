@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+
+
+//import {CounterService} from './counter.service';
 
 
 @Component({
@@ -9,7 +11,15 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 })
 
 export class AppComponent {
+
+  // constructor(
+  // // private countService: CounterService 
+  //  ) {
+  // }
+
   title = 'first-app';
+
+
 
   tabelGokGetallen = [
     { gokPoging: 1, getal: null },
@@ -24,13 +34,13 @@ export class AppComponent {
     { gokPoging: 10, getal: null },
   ];
 
-
+//counter=this.countService.seconds;
 
   displayedColumns: string[] = ["gokPoging", "getal"];
   dataSource = this.tabelGokGetallen;
 
   randomNummer: number = Math.floor((Math.random() * 100) + 1);
-  aantalGokken: number = 5;
+  aantalGokken: number = 10;
   aantalGokkenGedaan: number = 1;
   value: number = null;
   hint: string = "";
@@ -105,8 +115,8 @@ export class AppComponent {
       { gokPoging: 10, getal: null },
     ];
   }
-  itemToevoegenAanTabel() {
-    this.tabelGokGetallen[this.aantalGokkenGedaan - 2].getal = this.value;
+  itemToevoegenAanTabel() {    
+     this.tabelGokGetallen[this.aantalGokkenGedaan - 2].getal = this.value;
   }
 
 }

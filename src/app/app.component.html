@@ -1,83 +1,92 @@
-<div>
-    <h2>Raad het getal! </h2>
+<body>
+    <div id="intro">
+        <h2>Raad het getal! </h2>
 
-    <h3>Kies een getal tussen 1 en 100.</h3>
+        <h3>Kies een getal tussen 1 en 100.</h3>
 
-    <p>Als je op de button "Is dit het juiste getal" drukt, zal onderaan een hint gegeven worden
-        en of het gekozen getal juist is of niet.
+        <p>Als je op de button "Is dit het juiste getal" drukt, zal onderaan een hint gegeven worden
+            en of het gekozen getal juist is of niet.
 
-    </p>
-    <p> Je mag maximum 10 keer gokken.</p>
-    <p> Je moet het getal raden binnen de minuut.</p>
-
-    <br>
-    <br>
-    <br>
-    <p *ngIf="!gewonnen && !verloren" >Je hebt nog {{aantalGokken}} pogingen</p>
-    <p *ngIf="!gewonnen && !verloren && (value === null)">{{nullBoodschap}}</p>
-    <p *ngIf="!gewonnen && !verloren && value != null && (value <= 0 || value >100)">{{cijferHint}}</p>
-    <p *ngIf="!gewonnen && !verloren && (value > 0 || value <=100)"> {{hint}} </p>
-
-    <mat-form-field *ngIf="!gewonnen && !verloren" class="form-full-width" appearance="fill">
-        <mat-label class="belangrijk">doe een gok: een getal tussen 1 en 100</mat-label>
-        <input matInput min="1" max="100" type="number" [(ngModel)]="value" #ctrl="ngModel" required
-            placeholder="een getal tussen 1 en 100">
-        <mat-hint>kijk onderaan naar de gegeven hint</mat-hint>
-        <!-- <mat-error *ngIf="value === null">{{getErrorMessage() }}</mat-error> werkt niet waarom?????-->
-    </mat-form-field>
-    <br>
-
-    <p *ngIf="!gewonnen && !verloren && value != null"> het gekozen getal is {{value}} </p>
-    <br>
-
-    <p *ngIf="!gewonnen && !verloren" >
-        <button mat-raised-button (click)="getalOK()"> gok {{aantalGokkenGedaan }}</button>
-    </p>
-
-    
-    
-    <p *ngIf="verloren ">{{verlorenBoodschap}} {{randomNummer}}.</p>
-    <p *ngIf="gewonnen ">{{gewonnenBoodschap}}</p>
-
-    <div *ngIf="(gewonnen || verloren)">
-        <p> de getallen die je gegokt hebt waren:
-            <a *ngFor="let item of tabelGokGetallen">
-                {{item.getal}}
-            </a>
         </p>
-
+        <p> Je mag maximum 10 keer gokken.</p>
+        <p> Je moet het getal raden binnen de minuut.</p>
     </div>
 
-    <button *ngIf="(gewonnen || verloren)" mat-raised-button (click)="herbeginSpel()"> Herbegin!</button>
+    <div>
+        <div id="tekst">
 
-   
+<!-- <p>{{counter}}</p> -->
 
-    <br>
-    <h3 *ngIf="(!gewonnen && !verloren)">Je vorige pogingen waren: </h3>
+            <p *ngIf="!gewonnen && !verloren">Je hebt nog {{aantalGokken}} pogingen</p>
+            <p *ngIf="!gewonnen && !verloren && (value === null)">{{nullBoodschap}}</p>
+            <p *ngIf="!gewonnen && !verloren && value != null && (value <= 0 || value >100)">{{cijferHint}}</p>
+            <p *ngIf="!gewonnen && !verloren && (value > 0 || value <=100)"> {{hint}} </p>
+            <p *ngIf="verloren ">{{verlorenBoodschap}} {{randomNummer}}.</p>
+            <p *ngIf="gewonnen ">{{gewonnenBoodschap}}</p>
 
-    <table *ngIf="(!gewonnen && !verloren)" mat-table [dataSource]="tabelGokGetallen" class="mat-elevation-z8">
+        </div>
 
-        <ng-container matColumnDef="gokPoging">
-            <th mat-header-cell *matHeaderCellDef> Gok </th>
-            <td mat-cell *matCellDef="let element"> {{element.gokPoging}} </td>
-        </ng-container>
+        <div>
+            <mat-form-field *ngIf="!gewonnen && !verloren" class="form-full-width" appearance="fill">
+                <mat-label class="belangrijk">doe hier een gok: een getal tussen 1 en 100</mat-label>
+                <input matInput min="1" max="100" type="number" [(ngModel)]="value" #ctrl="ngModel" required
+                    placeholder="een getal tussen 1 en 100">
+                <mat-hint>kijk dan onderaan naar de gegeven hint</mat-hint>
+            </mat-form-field>
 
-        <ng-container matColumnDef="getal">
-            <th mat-header-cell *matHeaderCellDef> Getal </th>
-            <td mat-cell *matCellDef="let element"> {{element.getal}} </td>
-        </ng-container>
+            <br>
+
+            <p *ngIf="!gewonnen && !verloren && value != null"> het gekozen getal is {{value}} </p>
+            <br>
+
+            <p *ngIf="!gewonnen && !verloren">
+                <button mat-raised-button (click)="getalOK()"> gok {{aantalGokkenGedaan }}</button>
+            </p>
 
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let myRowData; columns: displayedColumns"></tr>
-    </table>
+
+        </div>
+
+        <div id="reeksGetallen" *ngIf="(gewonnen || verloren)">
+            <p> de getallen die je gegokt hebt waren:
+                <span *ngFor="let item of tabelGokGetallen">
+                    {{item.getal}}
+                </span>
+            </p>
+
+        </div>
+
+        <button *ngIf="(gewonnen || verloren)" mat-raised-button (click)="herbeginSpel()"> Herbegin!</button>
 
 
 
-    <p>{{randomNummer}}</p>
+        
+        <h3 *ngIf="(!gewonnen && !verloren)">Je vorige pogingen waren: </h3>
 
-</div>
+        <div>
+            <table *ngIf="(!gewonnen && !verloren)" mat-table [dataSource]="tabelGokGetallen" class="mat-elevation-z8">
 
+                <ng-container matColumnDef="gokPoging">
+                    <th mat-header-cell *matHeaderCellDef> Gok </th>
+                    <td mat-cell *matCellDef="let element"> {{element.gokPoging}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="getal">
+                    <th mat-header-cell *matHeaderCellDef> Getal </th>
+                    <td mat-cell *matCellDef="let element"> {{element.getal}} </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let myRowData; columns: displayedColumns"></tr>
+            </table>
+        </div>
+
+
+        <p>{{randomNummer}}</p>
+
+    </div>
+</body>
 
 <!-- 
 <input [(ngModel)]="name" #ctrl="ngModel" required>
