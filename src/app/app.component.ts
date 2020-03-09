@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { CounterService } from './counter.service';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +8,21 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
+
+  secondsLocal: number = 60;
+  /**
+   *
+   */
+  constructor(counterService:CounterService) {
+counterService.secondsSubject.subscribe((argumentSeconds) => {
+  this.secondsLocal  = argumentSeconds;
+});
+    
+    //this.secondsLocal = counterService.seconds;
+  }
+
+
+
 
   title = 'first-app';
 
@@ -24,7 +39,7 @@ export class AppComponent {
     { gokPoging: 10, getal: null },
   ];
 
-//counter=this.countService.seconds;
+
 
   displayedColumns: string[] = ["gokPoging", "getal"];
   dataSource = this.tabelGokGetallen;
