@@ -10,15 +10,11 @@ import { CounterService } from './counter.service';
 export class AppComponent {
 
   secondsLocal: number = 60;
-  /**
-   *
-   */
+  
   constructor(counterService:CounterService) {
 counterService.secondsSubject.subscribe((argumentSeconds) => {
   this.secondsLocal  = argumentSeconds;
 });
-    
-    //this.secondsLocal = counterService.seconds;
   }
 
 
@@ -99,6 +95,8 @@ counterService.secondsSubject.subscribe((argumentSeconds) => {
   }
 
   herbeginSpel() {
+
+
     this.randomNummer = Math.floor((Math.random() * 100) + 1);
     this.aantalGokken = 10;
     this.aantalGokkenGedaan = 1;
