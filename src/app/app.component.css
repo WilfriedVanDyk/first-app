@@ -1,8 +1,16 @@
+header{
+  margin:10px
+}
 body {     
     background-color: rgb(194, 186, 156);
     align-items:center;
-   text-align: center;
-    height: 180%;
+   text-align: center; 
+    height: 240%;
+   }
+
+div{
+     margin: 20px;
+     background-color: rgb(224, 219, 203);
    }
 
 #intro {
@@ -10,53 +18,55 @@ body {
     background-color: rgb(224, 219, 203);
     border: solid 10px black;
     width : 75%;    
-    margin: 15px;
+    
     margin-left: auto;
-    margin-right: auto;
+    margin-right: auto; 
     
 }
+
+
+#matGrid {
+  align-items:center;
+    max-width: 75%;
+     margin-left: auto;
+    margin-right: auto;
+    padding:10px;
+  
+}
+mat-grid-tile {  
+  background-color: rgb(143, 132, 99);
+} 
 
 #tekst {
     background-color: rgb(224, 219, 203);
     align-items:center;
     border: solid 5px black;
     padding: 8px;
-    width : 65%;
-    margin: 5px;
-    margin-left: auto;
-    margin-right: auto;
-}
-.form-full-width {
-    border: solid 3px black;
-    background-color: rgb(224, 219, 203);
-    align-items:center;
-    min-width: 150px;
-    max-width: 300px;
-    width:100%;
-    margin: 50px;
-    margin-top: 10px;
+    margin: 20px;
+   
     
+}
+#gok{
+    border: solid 3px black;
+     
+    min-width: 150px;
+    max-width: 300px;  
+}
+
+#vorigePogingen{
+  text-align: right;
 }
 
 .belangrijk{
-    width: 100;
+    
     color: red;
 }
 table {
     margin: auto;
     width: 175px;    
-  }
-
-  mat-grid-list {
-    align-items:center;
-      max-width: 75%;
-      margin-left: auto;
-      margin-right: auto;
-      margin-bottom: 10px;
-  }
-  mat-grid-tile {
     
-    background-color: rgb(224, 219, 203);
-  } 
-  
+  }
 
+  
+  
+ 

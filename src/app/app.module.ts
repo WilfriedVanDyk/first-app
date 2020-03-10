@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import {MatTableModule} from '@angular/material/table';
 
 import {MatGridListModule} from '@angular/material/grid-list';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 //import {CounterService} from './counter.service';
 //private countService: CounterService //in de constructur van de exportclass ????
@@ -27,6 +28,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
     FormsModule,
     MatTableModule,
     MatGridListModule,
+    FlexLayoutModule,
 ],
 exports:[
   MatGridListModule,

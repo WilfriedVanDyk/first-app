@@ -1,109 +1,106 @@
-<body>
-    <div id="intro">
-        <h2>Raad het getal! </h2>
+<div fxFlex fxLayout="column" fxLayoutGap="10px" style="height:100vh">
 
-        <h3>Kies een getal tussen 1 en 100.</h3>
+    <body>
+        <header id="intro">
+            <h2>Raad het getal! </h2>
 
-        <!-- <p>Als je op de button "klik voor gok 1" drukt, zal onderaan een hint gegeven worden
-            en of het gekozen getal juist is of niet.
+            <h3>Kies een getal tussen 1 en 100.</h3>
+        </header>
 
-        </p>
-        <p> Je mag maximum 10 keer gokken.</p>
-        <p> Je moet het getal raden binnen de minuut.</p> -->
-    </div>
 
-<p>{{secondsLocal}}</p>
+        <div id="matgrid">
+            <mat-grid-list cols="2" rowHeight="100px">
+                <mat-grid-tile>
+                    <p>Vul een getal in, en klik op de button "klik voor gok x"</p>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <p>je krijgt onderaan een hint. Is het gekozen getal juist is of niet.</p>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <p> Je mag maximum 10 keer gokken.</p>
 
-    <mat-grid-list  cols="2" rowHeight="100px"  >
-        <mat-grid-tile>
-            <p>Vul een getal in, en klik op de button "klik voor gok x"</p>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <p>je krijgt onderaan een hint. Is het gekozen getal juist is of niet.</p>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <p> Je mag maximum 10 keer gokken.</p>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <p> Je moet het getal raden binnen de minuut.</p>
-        </mat-grid-tile>
-    </mat-grid-list>
-
-    <div>
-        <div id="tekst">
-
-            <!-- <p>{{counter}}</p> -->
-
-            <p *ngIf="!gewonnen && !verloren">Je hebt nog {{aantalGokken}} pogingen</p>
-            <p *ngIf="!gewonnen && !verloren && (value === null)">{{nullBoodschap}}</p>
-            <p *ngIf="!gewonnen && !verloren && value != null && (value <= 0 || value >100)">{{cijferHint}}</p>
-            <p *ngIf="!gewonnen && !verloren && (value > 0 || value <=100)"> {{hint}} </p>
-            <p *ngIf="verloren ">{{verlorenBoodschap}} {{randomNummer}}.</p>
-            <p *ngIf="gewonnen ">{{gewonnenBoodschap}}</p>
-
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <p> Je moet het getal raden binnen de minuut.</p>
+                </mat-grid-tile>
+            </mat-grid-list>
         </div>
 
+        <div fxLayout="row wrap">
+            <div id="tekst" fxFlex="30" fxLayout="column" fxFlex.xs="100%">
+                <p *ngIf="!gewonnen && !verloren">Je hebt nog {{aantalGokken}} pogingen</p>
+                <p *ngIf="!gewonnen && !verloren && (value === null)">{{nullBoodschap}}</p>
+                <p *ngIf="!gewonnen && !verloren && value != null && (value <= 0 || value >100)">{{cijferHint}}</p>
+                <p *ngIf="!gewonnen && !verloren && (value > 0 || value <=100)"> {{hint}} </p>
+                <p *ngIf="verloren ">{{verlorenBoodschap}} {{randomNummer}}.</p>
+                <p *ngIf="gewonnen ">{{gewonnenBoodschap}}</p>
+                <p> Je hebt nog {{secondsLocal}} seconden</p>
+            </div>
+
+            <div id="gok" fxFlex="30" fxLayout="column" fxFlex.xs="100%" *ngIf="!gewonnen && !verloren" >
+                <mat-form-field *ngIf="!gewonnen && !verloren" class="form-full-width" appearance="fill">
+                    <mat-label class="belangrijk">doe hier een gok</mat-label>
+                    <input matInput min="1" max="100" type="number" [(ngModel)]="value" #ctrl="ngModel" required
+                        placeholder="tussen 1 en 100">
+                    <mat-hint>hiernaast een hint</mat-hint>
+                </mat-form-field>
+                <p *ngIf="!gewonnen && !verloren && value != null"> het gekozen getal is {{value}} </p>
+            </div>
 
 
-        <div>
-            <mat-form-field *ngIf="!gewonnen && !verloren" class="form-full-width" appearance="fill">
-                <mat-label class="belangrijk">doe hier een gok: een getal tussen 1 en 100</mat-label>
-                <input matInput min="1" max="100" type="number" [(ngModel)]="value" #ctrl="ngModel" required
-                    placeholder="een getal tussen 1 en 100">
-                <mat-hint>kijk dan onderaan naar de gegeven hint</mat-hint>
-            </mat-form-field>
+            <div id="buttonGok" fxFlex="20" fxLayout="column" fxFlex.xs="100%">
+                <p *ngIf="!gewonnen && !verloren">
+                    <button mat-raised-button (click)="getalOK()">bevestig gok {{aantalGokkenGedaan }}</button>
+                </p>
+            </div>
 
+            <div id="einde" fxLayout="row wrap">
+                <div id="reeksGetallen" fxFlex="50" fxLayout="column" fxFlex.xs="100%" *ngIf="(gewonnen || verloren)">
+                    <p> de getallen die je gegokt hebt waren:
+                        <span *ngFor="let item of tabelGokGetallen">
+                            {{item.getal}}
+                        </span>
+                    </p>
+                </div>
 
-            <p *ngIf="!gewonnen && !verloren && value != null"> het gekozen getal is {{value}} </p>
-
-            <p *ngIf="!gewonnen && !verloren">
-                <button mat-raised-button (click)="getalOK()">klik voor gok {{aantalGokkenGedaan }}</button>
-            </p>
-
-
-
+                <div fxFlex="30" fxLayout="column" fxFlex.xs="100%">
+                    <button *ngIf="(gewonnen || verloren)" mat-raised-button (click)="herbeginSpel()">
+                        Herbegin!</button>
+                </div>
+            </div>
         </div>
 
-        <div id="reeksGetallen" *ngIf="(gewonnen || verloren)">
-            <p> de getallen die je gegokt hebt waren:
-                <span *ngFor="let item of tabelGokGetallen">
-                    {{item.getal}}
-                </span>
-            </p>
+        <div id="tabelGetallen" fxLayout="row wrap">
+            <div id="vorigePogingen" fxFlex="30" fxLayout="column">
+                <h3 *ngIf="(!gewonnen && !verloren)">Je vorige pogingen waren: </h3>
+            </div>
 
-        </div>
+            <div fxFlex="30" fxLayout="column" fxFlex.xs="100%">
+                <table *ngIf="(!gewonnen && !verloren)" mat-table [dataSource]="tabelGokGetallen"
+                    class="mat-elevation-z8">
 
-        <button *ngIf="(gewonnen || verloren)" mat-raised-button (click)="herbeginSpel()"> Herbegin!</button>
+                    <ng-container matColumnDef="gokPoging">
+                        <th mat-header-cell *matHeaderCellDef> Gok </th>
+                        <td mat-cell *matCellDef="let element"> {{element.gokPoging}} </td>
+                    </ng-container>
 
-
-
-
-        <h3 *ngIf="(!gewonnen && !verloren)">Je vorige pogingen waren: </h3>
-
-        <div>
-            <table *ngIf="(!gewonnen && !verloren)" mat-table [dataSource]="tabelGokGetallen" class="mat-elevation-z8">
-
-                <ng-container matColumnDef="gokPoging">
-                    <th mat-header-cell *matHeaderCellDef> Gok </th>
-                    <td mat-cell *matCellDef="let element"> {{element.gokPoging}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="getal">
-                    <th mat-header-cell *matHeaderCellDef> Getal </th>
-                    <td mat-cell *matCellDef="let element"> {{element.getal}} </td>
-                </ng-container>
+                    <ng-container matColumnDef="getal">
+                        <th mat-header-cell *matHeaderCellDef> Getal </th>
+                        <td mat-cell *matCellDef="let element"> {{element.getal}} </td>
+                    </ng-container>
 
 
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let myRowData; columns: displayedColumns"></tr>
-            </table>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let myRowData; columns: displayedColumns"></tr>
+                </table>
+            </div>
         </div>
 
 
         <p>{{randomNummer}}</p>
+    </body>
 
-    </div>
-</body>
+</div>
 
 
 
