@@ -28,16 +28,17 @@
 
         <div fxLayout="row wrap">
             <div id="tekst" fxFlex="30" fxLayout="column" fxFlex.xs="100%">
-                <p *ngIf="!gewonnen && !verloren">Je hebt nog {{aantalGokken}} pogingen</p>
-                <p *ngIf="!gewonnen && !verloren && (value === null)">{{nullBoodschap}}</p>
-                <p *ngIf="!gewonnen && !verloren && value != null && (value <= 0 || value >100)">{{cijferHint}}</p>
-                <p *ngIf="!gewonnen && !verloren && (value > 0 || value <=100)"> {{hint}} </p>
-                <p *ngIf="verloren ">{{verlorenBoodschap}} {{randomNummer}}.</p>
+                <p *ngIf="!gewonnen && !verloren && secondsLocal>0 ">Je hebt nog {{aantalGokken}} pogingen</p>
+                <p *ngIf="!gewonnen && !verloren && (value === null) && secondsLocal>0">{{nullBoodschap}}</p>
+                <p *ngIf="!gewonnen && !verloren && value != null && (value <= 0 || value >100) && secondsLocal>0">{{cijferHint}}</p>
+                <p *ngIf="!gewonnen && !verloren && (value > 0 || value <=100) && secondsLocal>0"> {{hint}} </p>
+                <p *ngIf="verloren">{{verlorenBoodschap}} {{randomNummer}}.</p>
+                <p *ngIf="secondsLocal<=0">Je tijd is op. Het getal dat je zocht was {{randomNummer}}.</p>
                 <p *ngIf="gewonnen ">{{gewonnenBoodschap}}</p>
-                <p *ngIf="!gewonnen && !verloren && !eersteGok"> Je hebt nog {{secondsLocal}} seconden</p>
+                <p *ngIf="!gewonnen && !verloren && !eersteGok && secondsLocal>0"> Je hebt nog {{secondsLocal}} seconden</p>
             </div>
 
-            <div id="gok" fxFlex="30" fxLayout="column" fxFlex.xs="100%" *ngIf="!gewonnen && !verloren" >
+            <div id="gok" fxFlex="30" fxLayout="column" fxFlex.xs="100%" *ngIf="!gewonnen && !verloren && secondsLocal>0" >
                 <mat-form-field *ngIf="!gewonnen && !verloren" class="form-full-width" appearance="fill">
                     <mat-label class="belangrijk">doe hier een gok</mat-label>
                     <input matInput min="1" max="100" type="number" [(ngModel)]="value" #ctrl="ngModel" required
@@ -49,13 +50,13 @@
 
 
             <div id="buttonGok" fxFlex="20" fxLayout="column" fxFlex.xs="100%">
-                <p *ngIf="!gewonnen && !verloren">
+                <p *ngIf="!gewonnen && !verloren && secondsLocal>0">
                     <button mat-raised-button (click)="getalOK()">bevestig gok {{aantalGokkenGedaan }}</button>
                 </p>
             </div>
 
             <div id="einde" fxLayout="row wrap">
-                <div id="reeksGetallen" fxFlex="50" fxLayout="column" fxFlex.xs="100%" *ngIf="(gewonnen || verloren)">
+                <div id="reeksGetallen" fxFlex="50" fxLayout="column" fxFlex.xs="100%" *ngIf="(gewonnen || verloren || secondsLocal<=0)">
                     <p> de getallen die je gegokt hebt waren:
                         <span *ngFor="let item of tabelGokGetallen">
                             {{item.getal}}
@@ -64,13 +65,13 @@
                 </div>
 
                 <div fxFlex="30" fxLayout="column" fxFlex.xs="100%">
-                    <button *ngIf="(gewonnen || verloren)" mat-raised-button (click)="herbeginSpel()">
+                    <button *ngIf="(gewonnen || verloren || secondsLocal<=0)" mat-raised-button (click)="herbeginSpel()">
                         Herbegin!</button>
                 </div>
             </div>
         </div>
 
-        <div id="tabelGetallen" fxLayout="row wrap">
+        <div id="tabelGetallen" fxLayout="row wrap" *ngIf="(!gewonnen && !verloren && secondsLocal>0)">
             <div id="vorigePogingen" fxFlex="30" fxLayout="column">
                 <h3 *ngIf="(!gewonnen && !verloren)">Je vorige pogingen waren: </h3>
             </div>
@@ -95,8 +96,6 @@
                 </table>
             </div>
         </div>
-
-
         <p>{{randomNummer}}</p>
     </body>
 

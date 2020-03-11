@@ -12,22 +12,22 @@ export class AppComponent {
   title = 'first-app';
 
   secondsLocal: number = 60;
- //secondsSubj: Observable<number>;
-//  tijdResetLocal;
-service: CounterService;
+  //secondsSubj: Observable<number>;
+  //  tijdResetLocal;
+  service: CounterService;
 
   constructor(counterService: CounterService) {
-    this.service=counterService;
-      // counterService.secondsSubject.subscribe((argumentSeconds) => {
-      //   this.secondsLocal = argumentSeconds;
-     //});
+    this.service = counterService;
+    // counterService.secondsSubject.subscribe((argumentSeconds) => {
+    //   this.secondsLocal = argumentSeconds;
+    //});
 
     //  this.tijdResetLocal=counterService.tijdReset();
   }
 
 
 
-////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////
   tabelGokGetallen = [
     { gokPoging: 1, getal: null },
     { gokPoging: 2, getal: null },
@@ -60,32 +60,30 @@ service: CounterService;
   cijferHint: string = "Het nieuwe getal is te hoog of te laag. Kies opnieuw."
 
   getalOK = () => {
-    //als het de eerste gok is terug naar beginwaarde: anders zo laten
-    if(this.secondsLocal<= 60 && this.eersteGok){
+    if (this.eersteGok) {
       this.service.tijdReset();
-    this.eersteGok=false;
+      this.eersteGok = false;
     }
-    
     this.service.secondsSubject.subscribe((argumentSeconds) => {
-        this.secondsLocal = argumentSeconds;
-     });
-    
+      this.secondsLocal = argumentSeconds;
+    });
+
 
 
     if (this.value === this.randomNummer) {
       this.tabelGokGetallen[this.aantalGokkenGedaan - 1].getal = this.value;
       this.gewonnenBoodschap = "Proficiat! Dit is het juiste getal!! klik op de Herbegin! button om opnieuw te spelen";
       this.gewonnen = true;
-      this.tabelGokGetallen.length = this.aantalGokkenGedaan;     
+      this.tabelGokGetallen.length = this.aantalGokkenGedaan;
     }
-    else if(this.secondsLocal<=0){
+    else if (this.secondsLocal <= 0) {
       this.verlorenBoodschap = "je tijd is op. Jammer, je bent verloren! " +
-      "het juiste getal was "
-    this.verloren = true;
-    this.tabelGokGetallen.length = this.aantalGokkenGedaan;
+        "het juiste getal was "
+      this.verloren = true;
+      this.tabelGokGetallen.length = this.aantalGokkenGedaan;
     }
 
-    else if (this.aantalGokken <= 1 && this.value != null ) {
+    else if (this.aantalGokken <= 1 && this.value != null) {
       this.tabelGokGetallen[this.aantalGokkenGedaan - 1].getal = this.value;
       this.verlorenBoodschap = "Het aantal beurten is op. Jammer, je bent verloren! " +
         "het juiste getal was "
@@ -116,7 +114,17 @@ service: CounterService;
     }
   }
 
-  herbeginSpel = () => {    
+
+  counterOpNull = () => {
+    this.verloren = true;
+    this.verlorenBoodschap = "je tijd is op. Jammer, je bent verloren! " +
+    "het juiste getal was "
+  
+  this.tabelGokGetallen.length = this.aantalGokkenGedaan;
+  }
+
+
+  herbeginSpel = () => {
 
     this.service.tijdReset();
 
