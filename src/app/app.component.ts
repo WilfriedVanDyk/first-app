@@ -13,52 +13,69 @@ export class AppComponent {
 
   secondsLocal: number = 60;
   //secondsSubj: Observable<number>;
-  //  tijdResetLocal;
+ 
+  tabelGokGetallen;
   service: CounterService;
+ 
+
+  randomNummer: number;
+  aantalGokken: number;
+  aantalGokkenGedaan: number;
+  value: number;
+  hint: string ;
+  nullBoodschap: string;
+  verlorenBoodschap: string;
+  gewonnenBoodschap: string;
+  gewonnen: boolean;
+  verloren: boolean;
+  eersteGok: boolean;
+  cijferHint: string;
+
+
 
   constructor(counterService: CounterService) {
     this.service = counterService;
     // counterService.secondsSubject.subscribe((argumentSeconds) => {
     //   this.secondsLocal = argumentSeconds;
     //});
-
-    //  this.tijdResetLocal=counterService.tijdReset();
+    this.Init();
   }
 
+  Init = () =>{
 
+    this.service.tijdReset();
 
-  ////////////////////////////////////////////////////////////////////////////////
-  tabelGokGetallen = [
-    { gokPoging: 1, getal: null },
-    { gokPoging: 2, getal: null },
-    { gokPoging: 3, getal: null },
-    { gokPoging: 4, getal: null },
-    { gokPoging: 5, getal: null },
-    { gokPoging: 6, getal: null },
-    { gokPoging: 7, getal: null },
-    { gokPoging: 8, getal: null },
-    { gokPoging: 9, getal: null },
-    { gokPoging: 10, getal: null },
-  ];
+    this.tabelGokGetallen = [
+      { gokPoging: 1, getal: null },
+      { gokPoging: 2, getal: null },
+      { gokPoging: 3, getal: null },
+      { gokPoging: 4, getal: null },
+      { gokPoging: 5, getal: null },
+      { gokPoging: 6, getal: null },
+      { gokPoging: 7, getal: null },
+      { gokPoging: 8, getal: null },
+      { gokPoging: 9, getal: null },
+      { gokPoging: 10, getal: null },
+    ];
 
-
+    this.randomNummer = Math.floor((Math.random() * 100) + 1);
+    this.aantalGokken = 10;
+    this.aantalGokkenGedaan = 1;
+    this.value = null;
+    this.hint = "";
+    this.nullBoodschap = "Geef een nieuw nummer in.";
+    this.verlorenBoodschap;
+    this.gewonnenBoodschap;
+    this.gewonnen = false;
+    this.verloren = false;
+    this.eersteGok = true;
+    this.cijferHint= "Het nieuwe getal is te hoog of te laag. Kies opnieuw."
+  }
 
   displayedColumns: string[] = ["gokPoging", "getal"];
   dataSource = this.tabelGokGetallen;
 
-  randomNummer: number = Math.floor((Math.random() * 100) + 1);
-  aantalGokken: number = 10;
-  aantalGokkenGedaan: number = 1;
-  value: number = null;
-  hint: string = "";
-  nullBoodschap: string = "Geef een nieuw nummer in.";
-  verlorenBoodschap: string;
-  gewonnenBoodschap: string;
-  gewonnen: boolean = false;
-  verloren: boolean = false;
-  eersteGok: boolean = true;
-  cijferHint: string = "Het nieuwe getal is te hoog of te laag. Kies opnieuw."
-
+  
   getalOK = () => {
     if (this.eersteGok) {
       this.service.tijdReset();
@@ -123,33 +140,6 @@ export class AppComponent {
   this.tabelGokGetallen.length = this.aantalGokkenGedaan;
   }
 
-
-  herbeginSpel = () => {
-
-    this.service.tijdReset();
-
-    this.randomNummer = Math.floor((Math.random() * 100) + 1);
-    this.aantalGokken = 10;
-    this.aantalGokkenGedaan = 1;
-    this.gewonnen = false;
-    this.verloren = false;
-    this.nullBoodschap = "Geef een nieuw nummer in.";
-    this.value = null;
-    this.hint = "";
-    this.eersteGok = true;
-    this.tabelGokGetallen = [
-      { gokPoging: 1, getal: null },
-      { gokPoging: 2, getal: null },
-      { gokPoging: 3, getal: null },
-      { gokPoging: 4, getal: null },
-      { gokPoging: 5, getal: null },
-      { gokPoging: 6, getal: null },
-      { gokPoging: 7, getal: null },
-      { gokPoging: 8, getal: null },
-      { gokPoging: 9, getal: null },
-      { gokPoging: 10, getal: null },
-    ];
-  }
   itemToevoegenAanTabel = () => {
     this.tabelGokGetallen[this.aantalGokkenGedaan - 2].getal = this.value;
   }
