@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CounterService } from './counter.service';
 import { Subject, Observable, Subscription } from 'rxjs';
+import { ElementTabel} from './elementTabel';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,7 @@ export class AppComponent {
   secondsLocal: number = 60;
   //secondsSubj: Observable<number>;
  
-  tabelGokGetallen;
+  tabelGokGetallen:Array<ElementTabel>;
   service: CounterService;
  
 
@@ -46,18 +47,18 @@ export class AppComponent {
     this.service.tijdReset();
 
     this.tabelGokGetallen = [
-      { gokPoging: 1, getal: null },
-      { gokPoging: 2, getal: null },
-      { gokPoging: 3, getal: null },
-      { gokPoging: 4, getal: null },
-      { gokPoging: 5, getal: null },
-      { gokPoging: 6, getal: null },
-      { gokPoging: 7, getal: null },
-      { gokPoging: 8, getal: null },
-      { gokPoging: 9, getal: null },
-      { gokPoging: 10, getal: null },
+      new ElementTabel(1,null),
+      new ElementTabel(2,null),
+      new ElementTabel(3,null),
+      new ElementTabel(4,null),
+      new ElementTabel(5,null),
+      new ElementTabel(6,null),
+      new ElementTabel(7,null),
+      new ElementTabel(8,null),
+      new ElementTabel(9,null),
+      new ElementTabel(10,null),
     ];
-
+    
     this.randomNummer = Math.floor((Math.random() * 100) + 1);
     this.aantalGokken = 10;
     this.aantalGokkenGedaan = 1;
